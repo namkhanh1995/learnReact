@@ -17,35 +17,41 @@ class Content extends Component {
   }
   totalProduct(index){
     this.setState((prevState, props)=>{
-      console.log(this.state.details);
-      //this.state.details[index].quantity = prevState.details[index].quantity + 1;
-      this.state.total = prevState.total + 1 * prevState.details[index].price;
+      console.info(prevState.details[index].quantity);
       return {
-        total: this.state.total
+        details: prevState.details.map(
+          obj => (obj.id === index + 1 ? Object.assign(obj, { quantity: prevState.details[index].quantity +0.5 }) : obj)
+        ),
+        total: prevState.total + 1 * prevState.details[index].price
+      }
+    });
+  }   
+  minusProduct(index){
+    this.setState((prevState, props)=>{
+      if (prevState.details[index].quantity !== 0){
+        console.info(prevState.details[index].quantity);
+        return {
+          details: prevState.details.map(
+            obj => (obj.id === index + 1 ? Object.assign(obj, { quantity: prevState.details[index].quantity - 0.5 }) : obj)
+          ),
+          total: prevState.total - 1 * prevState.details[index].price
+        }
       }
     });
   }   
   render(){
-    var detailTags = this.state.details.map((e, index) => (
-      <Product
-        key={e.id}
-        addHandler={() => this.totalProduct(index)}
-        productName={e.name}
-        price={e.price}
-        quantity={e.quantity}
-      />
-    ));
     return (
         <Row gutter={[16, 16]}>
           <Col span={8}>
-            {detailTags}
-          </Col>
-          {/* <Col span={8}>
-            <Product name={this.state.details[1].name} price={this.state.details[1].price} quantity={this.state.details[1].quantity} addHandler={()=>this.totalProduct(1)}></Product>
+            {/* {detailTags} */}
+            <Product name={this.state.details[0].name} price={this.state.details[0].price} quantity={this.state.details[0].quantity} addHandler={()=>this.totalProduct(0)} minusHandler={()=>this.minusProduct(0)}></Product>
           </Col>
           <Col span={8}>
-            <Product name={this.state.details[2].name} price={this.state.details[2].price} quantity={this.state.details[2].quantity} addHandler={()=>this.totalProduct(2)}></Product>
-          </Col> */}
+            <Product name={this.state.details[1].name} price={this.state.details[1].price} quantity={this.state.details[1].quantity} addHandler={()=>this.totalProduct(1)} minusHandler={()=>this.minusProduct(1)}></Product>
+          </Col>
+          <Col span={8}>
+            <Product name={this.state.details[2].name} price={this.state.details[2].price} quantity={this.state.details[2].quantity} addHandler={()=>this.totalProduct(2)} minusHandler={()=>this.minusProduct(2)}></Product>
+          </Col>
           <Total total={this.state.total}></Total>
        </Row>
     );

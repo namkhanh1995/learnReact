@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Button } from 'antd';
 
 class Product extends Component {
     render(){
@@ -15,7 +14,8 @@ class Product extends Component {
             <h2>
                 Quantity: {this.props.quantity}
             </h2>
-            <Button onClick={this.props.addHandler}>+</Button>
+            <button onClick={this.props.addHandler}>+</button>
+            <button onClick={this.props.minusHandler}>-</button>
       </div>
     );
   }
