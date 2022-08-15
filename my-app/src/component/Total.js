@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 
-class Header extends Component {
+class Total extends Component {
   render(){
     return (
       <div>
-        Complex Example (Event, List, Props, State)
+        Total: {this.props.total} USD
       </div>
     );
   }
 }
 
-export default Header;
+export default Total;
