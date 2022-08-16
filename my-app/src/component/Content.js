@@ -23,9 +23,10 @@ class Content extends Component {
     }else{
       sum = this.state.total - parseInt(childData);
     }
-    this.setState((prevState, props)=>{
-      return {total: sum}
-    })
+    this.setState({
+        total: sum
+      }
+    )
   }
 
   render(){
@@ -41,7 +42,6 @@ class Content extends Component {
             <Product name={this.state.details[2].name} price={this.state.details[2].price} quantity={this.state.details[2].quantity} parentCallback = {this.callbackFunction}></Product>
           </Col>
           <Total total={this.state.total}></Total>
-          <p> {this.state.message} </p>
        </Row>
     );
   }

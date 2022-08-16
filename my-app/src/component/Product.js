@@ -20,6 +20,7 @@ class Product extends Component {
       }   
     minusProduct(){
       this.setState((prevState, props)=>{
+        console.log("test");
         if (prevState.quantity !== 0){
           this.props.parentCallback(this.state.price,false);
           return {
