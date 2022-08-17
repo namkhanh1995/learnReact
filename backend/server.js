@@ -9,7 +9,7 @@ const uri = require('./api/config/db.config').url;
 
 app.use(bodyParser.json());
 
-
+app.use(express.urlencoded({ extended: true })) 
 //app.use(cors);
 
 

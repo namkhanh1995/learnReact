@@ -3,10 +3,8 @@
 
   var router = require("express").Router();
 
-  // Retrieve all Tutorials
-  // router.get("/", tutorials.findAll);
-  // app.use("/api/tutorials", router);
   router.get('/',posts.getAllPosts);
   router.post('/', posts.createPost);
+  router.post('/update', posts.updatePost);
 
   module.exports = router;

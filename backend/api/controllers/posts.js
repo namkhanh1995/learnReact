@@ -1,20 +1,3 @@
-// const db = require('../model');
-// // const dbConnection = db.connectToServer(db.getDb);
-// const dbConnection = db.getDb();
-// module.exports.findAll = (req, res) => {
-//     console.info(dbConnection);
-//     dbConnection.collection("comments").find().then(data => {
-//         console.log(data);
-//         res.send(data);
-//       })
-//       .catch(err => {
-//         res.status(500).send({
-//           message:
-//             err.message || "Some error occurred while retrieving tutorials."
-//         });
-//       });
-// }
-
 const postModel = require("../models/postModel");
 
 module.exports.getAllPosts = async (req, res) => {
@@ -26,10 +9,24 @@ module.exports.getAllPosts = async (req, res) => {
     res.status(500).json({error : err});
   }
 };
-module.exports.createPost = (req, res) => {
-  const post = new postModel({
-    title: 'test',
-    content: 'test'
-  });
-  post.save();
+module.exports.createPost = async (req, res) => {
+  try {
+    console.log('post', req);
+    const newPost = req.body;
+    const post = new postModel(newPost);
+    await post.save();
+    res.status(200).json(post);
+  }catch(err){
+    res.status(500).json({error : err});
+  }
+};
+
+module.exports.updatePost = async (req, res) => {
+  try {
+    const updatePost = req.body;
+    const post = await postModel.findOneAndUpdate({_id: updatePost._id}, updatePost, {new: true});
+    res.status(200).json(post);
+  }catch(err){
+    res.status(500).json({error : err});
+  }
 };
