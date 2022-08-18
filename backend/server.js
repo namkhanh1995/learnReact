@@ -13,11 +13,11 @@ app.use(express.urlencoded({ extended: true }))
 //app.use(cors);
 
 
-// app.get('/', (req, res) => {
-//     res.send(`Listening on ${ PORT }`);
-// })
+app.get('/', (req, res) => {
+    res.send(`Listening on ${ PORT }`);
+})
 
-
+app.use(cors());
 app.use('/posts', router);
 
 mongoose.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true})

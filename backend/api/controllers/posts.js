@@ -3,7 +3,6 @@ const postModel = require("../models/postModel");
 module.exports.getAllPosts = async (req, res) => {
   try {
     const posts = await postModel.find();
-    console.log('post', posts);
     res.status(200).json(posts);
   }catch(err){
     res.status(500).json({error : err});
@@ -11,7 +10,7 @@ module.exports.getAllPosts = async (req, res) => {
 };
 module.exports.createPost = async (req, res) => {
   try {
-    console.log('post', req);
+    console.log('post', req.body);
     const newPost = req.body;
     const post = new postModel(newPost);
     await post.save();

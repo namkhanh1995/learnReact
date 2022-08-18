@@ -1,15 +1,17 @@
 import './App.css';
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import Header from './component/Header';
-import Content from './component/Content';
+import GetPosts from './component/Posts/GetPosts';
+import PostPosts from './component/Posts/PostPosts';
 
 class App extends Component {
   render(){
     return (
       <div>
-        <Header />
-        <Content />
+        {/* <Header /> */}
+        <GetPosts />
+        <PostPosts />
+        {/* <Content /> */}
       </div>
   );
   }
