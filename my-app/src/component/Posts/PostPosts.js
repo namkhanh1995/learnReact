@@ -7,46 +7,72 @@ class PostPosts extends Component {
     this.state = {
         error: null,
         isLoaded: false,
-        data: []
+        data: [],
+        request:{
+          title : String,
+          content: String,
+          author: String
+        }
     }; 
   }
   
-  addPosts(){
+  handleSubmitForm(event) {
+    alert("Full Name: " + this.state.request.title);
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-            {
-                "title": "hahaha",
-                "content": "okkkkkkkk",
-                "author": "abc"
-            }
-        )
-    };
-    fetch("http://localhost:5000/posts", requestOptions)
-      .then(res => res.json())
-      .then(
-        (responseJson) => {
-            console.log(responseJson);
-          this.setState({
-            isLoaded: true,
-         //   data: results
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+          {
+              "title": this.state.request.title,
+              "content": "okkkkkkkk",
+              "author": "abc"
+          }
       )
+  };
+  
+  fetch("http://localhost:5000/posts", requestOptions)
+    .then(res => res.json())
+    .then(
+      (responseJson) => {
+          console.log(responseJson);
+        this.setState({
+          isLoaded: true,
+       //   data: results
+        });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
+    event.preventDefault();
+  }  
+
+  handleChange(event) {
+    var value = event.target.value;
+    this.setState(prevState => ({
+      request:{
+        //...prevState.request,
+        title: value
+      }
+    }));
   }
+  
   render(){
     return(
-        <div>
-            <input></input>
-            <button onClick={()=> this.addPosts()}>Add post</button>
-        </div>
+      <form onSubmit={event => this.handleSubmitForm(event)}>
+      <label>
+        Full Name:
+        <input
+          type="text"
+        //  value={this.state.request.title}
+          onChange={event => this.handleChange(event)}
+        />
+        </label>
+        <input type="submit" value="Submit" />      
+      </form>
     )
     
   }
